@@ -1,0 +1,6 @@
+pyArmor
+pyinstaller
+requests
+bs4
+beautifulsoup4
+pynput
