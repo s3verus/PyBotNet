@@ -1,6 +1,7 @@
 # PyBotNet
 
 create your botnet easy as drinking water! just enjoy it ;)
+
 **[Warning] I do not accept any responsibility for any illegal usage. [Warning]**
 
 
@@ -36,8 +37,8 @@ for more information see manual.html
 ### Support me
 
 > **Bitcoin wallet:** bc1q966sr0yef0jjwk6mf2rahpggmnxc9kalvd05wc<br>
-> **Litecoin wallet:** ltc1qqde29jzcsm7qklf7vdvxvrd2t9ezw269yz4rze<br>
 > **Ethereum wallet:** 0xEBb86542F28c8dD604DD05B3AB1e4F0f49c23a98<br>
+> **Litecoin wallet:** ltc1qqde29jzcsm7qklf7vdvxvrd2t9ezw269yz4rze<br>
 
 ## Contributing
 
