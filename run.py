@@ -26,8 +26,9 @@ if __name__ == "__main__":
     logo()
     command = "pyarmor obfuscate PyBots.py"
     system(command)
+    input("copy your icon.icon to /dist directory and enter to continue...")
     command = "cd dist"
     system(command)
-    command = "pyinstaller --noconsole -i icon.svg -F PyBots.py"
+    command = "pyinstaller --noconsole -i icon.icon -F PyBots.py"
     system(command)
-    print("\n your executable file is on /dist/ directory \n")
+    print("\n your executable file is in /dist/ directory \n")
