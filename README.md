@@ -1,10 +1,12 @@
+
 # PyBotNet
 
 create your botnet easy as drinking water! just enjoy it ;)
-
+<p align="center">
+![](image.png)
 
 **[Warning] I do not accept any responsibility for any illegal usage. [Warning]**
-
+</p>
 
 ### YOU WILL NEED :
 
@@ -43,11 +45,14 @@ for more information see manual.html
 4. Push to the branch: `git push origin my-new-branch`
 5. Submit a pull request :D
 
-### Support me 
+### Support this project 
 
 > **Bitcoin wallet:** bc1q966sr0yef0jjwk6mf2rahpggmnxc9kalvd05wc<br>
 > **Ethereum wallet:** 0xEBb86542F28c8dD604DD05B3AB1e4F0f49c23a98<br>
 > **Litecoin wallet:** ltc1qqde29jzcsm7qklf7vdvxvrd2t9ezw269yz4rze<br>
 
+<p align="center">
 [![Drop ICE](heart.svg)](https://twitter.com/thealiabdollahi)
 
+click on heart
+</p>
