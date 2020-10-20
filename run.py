@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 from os import system
-from time import sleep
 
 
 def logo():
@@ -24,11 +23,21 @@ def logo():
 
 if __name__ == "__main__":
     logo()
+    input("please enter for obfuscate your BotNet...")
     command = "pyarmor obfuscate PyBots.py"
     system(command)
-    input("copy your icon.icon to /dist directory and enter to continue...")
+    input("please copy your icon.icon to /dist directory and enter for create executable file...")
     command = "cd dist"
     system(command)
-    command = "pyinstaller --noconsole -i icon.icon -F PyBots.py"
-    system(command)
-    print("\n your executable file is in /dist/ directory \n")
+    # i will change it soon
+    output = input("what is your target OS? (1.windows/2.linux)\n")
+    if output == "1" or output == "windows" or output == "1.windows":
+        command = "pyinstaller --noconsole --clean -i icon.icon -F PyBots.py"
+        system(command)
+        print("\n your executable file is in /dist/ directory \n")
+    elif output == "2" or output == "linux" or output == "2.linux":
+        command = "pyinstaller --noconsole --clean -i icon.icon -F PyBots.py"
+        system(command)
+        print("\n your executable file is in /dist/ directory \n")
+    else:
+        print("please enter a valid number!!!")
