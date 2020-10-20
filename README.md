@@ -12,6 +12,7 @@ create your botnet easy as drinking water! just enjoy it ;)
 
 - [x] python3
 - [x] pip3
+- [x] NetCat
 
 ### Install Dependencies
 
@@ -32,6 +33,7 @@ pip3 install -r requirements.txt
 - [x] clear keys on chrome and Firefox for keyLogger attack, linux and windows
 - [x] start keyLogger to listen
 - [x] ddos attack to domains
+- [x] clear restore points on target, only windows
 - [x] reboot and poweroff targets
 - [ ] kill your enemies, no it can't
   
@@ -54,5 +56,5 @@ for more information see manual.html
 
 [![Drop ICE](heart.svg)](https://twitter.com/thealiabdollahi)
 
-click on heart
+                click on heart
 
